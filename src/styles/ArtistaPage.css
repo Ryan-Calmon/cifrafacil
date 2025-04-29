@@ -1,0 +1,113 @@
+.artista-id-img {
+  margin-top: 20px;
+  border-radius: 50%;
+  width: 100px;
+}
+
+.artista-nome {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.artista-header {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+  padding-left: 20px;
+}
+
+.virar-fa {
+  border: solid rgba(255, 166, 0, 0.26);
+  background-color: rgba(255, 166, 0, 0.26);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-self: flex-start;
+  padding: 6px 12px;
+}
+
+.virar-fa:hover {
+  background-color: rgba(255, 166, 0, 0.404);
+  color: white;
+  cursor: pointer;
+}
+
+.mais-acessos {
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+.musicas-mais-acessadas {
+  margin-top: 10px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.musica-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+}
+
+.musica-numero {
+  width: 24px;
+  font-weight: bold;
+  color: #aaa;
+  text-align: right;
+}
+
+.musica-nome {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.musica-nome:hover {
+  text-decoration: underline;
+}
+
+/* -------- Ajustes para DESKTOP (>1000px) -------- */
+@media screen and (min-width: 1000px) {
+  .artista-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .artista-header {
+    padding-left: 0;
+    margin-bottom: 40px;
+    justify-content: flex-start;
+  }
+
+  .mais-acessos {
+    padding-left: 0;
+    margin-bottom: 16px;
+  }
+
+  .musicas-mais-acessadas {
+    padding-left: 0;
+    gap: 10px;
+  }
+
+  .musica-item {
+    font-size: 20px;
+  }
+
+  .musica-numero {
+    width: 28px;
+    font-size: 18px;
+  }
+}

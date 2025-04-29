@@ -1,0 +1,87 @@
+const EuTeDevoro = `
+<pre>
+[Intro] <b>D7M</b>  <b>Bm7</b>  <b>G7M</b>  <b>Em</b>  <b>A7(4)</b>
+        <b>D7M</b>  <b>Bm7</b>  <b>G7M</b>  <b>Em</b>  <b>A7(4)</b>
+
+[Primeira Parte]
+
+ <b>D7M</b>
+Teus sinais
+                   <b>Bm</b>
+Me confundem da cabeça aos pés
+
+Mas por dentro 
+           <b>G7M</b>  <b>Em</b>  <b>A7(4)</b>
+Eu te devoro
+
+ <b>D7M</b>
+Teu olhar
+                   <b>Bm7</b>
+Não me diz exato quem tu és
+                     <b>G7M</b>
+Mesmo assim eu te devoro
+ <b>Em</b>       <b>A7(4)</b>
+Te devoraria 
+
+    <b>D7M</b>
+A qualquer preço
+                     <b>Bm7</b>
+Porque te ignoro ou te conheço
+
+Quando chove 
+           <b>G7M</b>     <b>Em</b>  <b>A7(4)</b>
+Ou quando faz frio
+
+ <b>D7M</b>
+Noutro plano
+              <b>Bm7</b>
+Te devoraria tal Caetano
+              <b>G7M</b>
+A Leonardo DiCaprio
+<b>C7</b>
+É um milagre
+
+[Refrão]
+
+ <b>Bm</b>              <b>Bm/A</b>            <b>G7M</b>
+Tudo que Deus criou pensando em você
+       <b>Bm</b>          <b>Bm/A</b>        <b>G7M</b>
+Fez a Via-Láctea, fez os dinossauros
+        <b>Bm</b>           <b>Bm/A</b>        <b>G7M</b>
+Sem pensar em nada, fez a minha vida
+   <b>F#m7</b>  <b>G7M</b>
+E te deu
+
+        <b>Bm</b>           <b>Bm/A</b>      <b>G7M</b>
+Sem contar os dias que me faz morrer
+       <b>Bm</b>           <b>Bm/A</b>     <b>G7M</b>
+Sem saber de ti, jogado à solidão
+         <b>Bm</b>
+Mas se quer saber 
+        <b>Bm/A</b>       <b>G7M</b>
+Se eu quero outra vida
+ <b>F#m7</b>    <b>G7M</b>
+Não, não
+
+( <b>D7M</b>  <b>Bm7</b>  <b>G7M</b>  <b>Em</b>  <b>A7(4)</b> )
+( <b>D7M</b>  <b>Bm7</b>  <b>G7M</b>  <b>Em</b>  <b>A7(4)</b> )
+
+[Final]
+
+<b>D7M</b>
+    Eu quero mesmo é viver
+  <b>Bm7</b>
+Pra esperar, esperar
+     <b>G7M</b>      <b>Em</b>  <b>A7(4)</b>
+Devorar você
+
+<b>D7M</b>
+    Eu quero mesmo é viver
+  <b>Bm7</b>
+Pra esperar, esperar
+     <b>G7M</b>     <b>Em</b>  <b>A7(4)</b>
+Devorar você
+</pre>
+`;
+
+export default EuTeDevoro;

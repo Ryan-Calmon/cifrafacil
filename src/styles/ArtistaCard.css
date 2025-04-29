@@ -1,0 +1,70 @@
+.artista-card {
+    transition: transform 0.3s ease;
+  }
+  
+  .artista-card:hover {
+    transform: scale(1.05);
+    cursor:pointer;
+  }
+  
+  .artista-img-container {
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .artista-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  .artista-posicao {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background-color: orange;
+    color: white;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .artista-nome {
+    margin-top: 8px;
+    font-weight: 50;
+    font-size: 20px;
+  }
+  .em-alta{
+    text-align: center;
+    margin-right: 0;
+    margin-top:20px;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color:orange;
+  }
+  .artista-img-container {
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 0 auto;
+    position: relative;
+  }
+ 
+  @media (min-width: 800px) {
+    .artista-img-container {
+      width: 250px;
+      height: 250px;
+    }
+    
+  }
