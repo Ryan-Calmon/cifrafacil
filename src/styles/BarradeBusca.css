@@ -1,0 +1,76 @@
+.buscar-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index: 10;
+  }
+  
+  .input-group.input-group-buscar {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 8px 16px;
+    gap: 10px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-icon {
+    color: #7a7a7a;
+  }
+  
+  .input-field {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: transparent;
+  }
+  
+  .resultados-busca {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-top: 4px;
+    z-index: 9999;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .resultado-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.3s;
+  }
+  
+  .resultado-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .foto-artista {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .nenhum-resultado {
+    text-align: center;
+    color: #888;
+    padding: 8px 0;
+  }
+  .input-icon{
+    color:white;
+  }

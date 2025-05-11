@@ -1,0 +1,79 @@
+{
+  "artistas": [
+    {
+      "id": "djavan",
+      "nome": "Djavan",
+      "imagem": "/images/djavan.png",
+      "categoria": "MPB",
+      "numeroDeFas": 100,
+      "usuariosFas": [
+        "usuario-1"
+      ],
+      "musicas": [
+        {
+          "titulo": "Oceano",
+          "instrumentos": [
+            "violao",
+            "cavaco"
+          ],
+          "conteudoUrl": "/letras/oceano.html",
+          "youtubeId": "2kqdlAYNEzk",
+          "tom": "C"
+        },
+        {
+          "titulo": "Eu te Devoro",
+          "instrumentos": [
+            "violao",
+            "cavaco"
+          ],
+          "conteudoUrl": "/letras/EuTeDevoro.html",
+          "youtubeId": "bUjQNMH1HYw",
+          "tom": "D"
+        },
+        {
+          "titulo": "Flor de Lis",
+          "instrumentos": [
+            "violao",
+            "cavaco"
+          ],
+          "conteudoUrl": "/letras/FlorDeLis.html",
+          "youtubeId": "2kqdlAYNEzk",
+          "tom": "C"
+        },
+        {
+          "titulo": "Pétala",
+          "instrumentos": [
+            "violao",
+            "cavaco"
+          ],
+          "conteudoUrl": "/letras/Petala.html",
+          "youtubeId": "",
+          "tom": ""
+        }
+      ]
+    },
+    {
+      "id": "caetanoveloso",
+      "nome": "Caetano Veloso",
+      "imagem": "/images/caetanoveloso.png",
+      "categoria": "MPB",
+      "numeroDeFas": 30,
+      "usuariosFas": [],
+      "musicas": [
+        {
+          "titulo": "Sozinho",
+          "instrumentos": [
+            "violao",
+            "cavaco"
+          ],
+          "conteudo": "<p>Letra de Sozinho</p>",
+          "youtubeId": "",
+          "tom": ""
+        }
+      ]
+    }
+  ],
+  "favoritos": [],
+  "listas": [],
+  "solicitacoes": []
+}

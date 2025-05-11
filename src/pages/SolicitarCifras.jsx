@@ -8,25 +8,38 @@ function SolicitarCifras() {
   const [arquivo, setArquivo] = useState(null);
   const [toast, setToast] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log({
+  
+    const formData = {
       musica,
       artista,
       youtube,
-      arquivo
-    });
-
-    setToast("Solicitação enviada com sucesso! 🎶");
-
-    setTimeout(() => {
-      setToast("");
+      nomeArquivo: arquivo?.name || null,
+      data: new Date().toISOString()
+    };
+  
+    try {
+      await fetch("http://localhost:3001/solicitacoes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      setToast("Solicitação enviada com sucesso! 🎶");
+  
       setMusica("");
       setArtista("");
       setYoutube("");
       setArquivo(null);
-    }, 2500);
+  
+      setTimeout(() => setToast(""), 2500);
+    } catch (err) {
+      console.error("Erro ao enviar:", err);
+      setToast("Erro ao enviar a solicitação 😢");
+    }
   };
 
   return (

@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Footer.css";
-import menuIcon from "../Images/menu inicial.png";
-import listIcon from "../Images/List.png";
-import searchIcon from "../Images/lupa.png";
-import requestIcon from "../Images/Solicitar.png";
 
 function Footer() {
   const navigate = useNavigate();
@@ -37,7 +33,7 @@ function Footer() {
         onClick={() => handleSetActive(0, "/")}
       >
         <div className="icon-wrapper">
-          <img src={menuIcon} className="icon" alt="Menu" />
+          <img src="/Images/menu inicial.png" className="icon" alt="Menu" />
         </div>
         <span className="Buscar">Menu</span>
       </div>
@@ -47,7 +43,7 @@ function Footer() {
         onClick={() => handleSetActive(1, "/listas")}
       >
         <div className="icon-wrapper">
-          <img src={listIcon} className="icon" alt="Suas Listas" />
+          <img src="/Images/List.png" className="icon" alt="Suas Listas" />
         </div>
         <span className="Buscar">Suas Listas</span>
       </div>
@@ -57,7 +53,7 @@ function Footer() {
         onClick={() => handleSetActive(2, "/Buscarcifra")}
       >
         <div className="icon-wrapper">
-          <img src={searchIcon} className="icon" alt="Buscar" />
+          <img src="/Images/lupa.png" className="icon" alt="Buscar" />
         </div>
         <span className="Buscar">Buscar</span>
       </div>
@@ -67,7 +63,7 @@ function Footer() {
         onClick={() => handleSetActive(3, "/SolicitarCifras")}
       >
         <div className="icon-wrapper">
-          <img src={requestIcon} className="icon" alt="Solicitar" />
+          <img src="/Images/Solicitar.png" className="icon" alt="Solicitar" />
         </div>
         <span className="Buscar">Solicitar</span>
       </div>

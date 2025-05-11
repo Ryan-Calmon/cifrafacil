@@ -1,70 +1,70 @@
-// src/pages/MusicaPage.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import artistas from "../components/ArtistaData";
+import { useDispatch, useSelector } from "react-redux";
+import { adicionarFavorito, removerFavorito } from "../redux/favoritosSlice";
+import { fetchArtistaPorId } from "../redux/artistasSlice";
 import "../styles/MusicaPage.css";
 import AutoScrollButton from "../components/AutoScrollButton";
 
 function MusicaPage() {
   const { id, musicaId } = useParams();
-  const [favoritado, setFavoritado] = useState(false);
+  const dispatch = useDispatch();
+  const [letraHtml, setLetraHtml] = useState("");
+  const [erroLetra, setErroLetra] = useState(false);
 
-  const artista = artistas.find((a) => a.id === id);
-  const musica = artista?.musicas.find((m) =>
-    m.titulo.replace(/\s+/g, "").toLowerCase() === musicaId
+  const { artistaSelecionado: artista, status } = useSelector((state) => state.artistas);
+  const favoritos = useSelector((state) => state.favoritos.lista);
+
+  useEffect(() => {
+    dispatch(fetchArtistaPorId(id));
+  }, [dispatch, id]);
+
+  const musica = artista?.musicas.find(
+    (m) => m.titulo.replace(/\s+/g, "").toLowerCase() === musicaId
   );
 
   useEffect(() => {
-    const atualizarFavoritado = () => {
-      const favoritosSalvos = JSON.parse(localStorage.getItem("favoritos")) || [];
-      const jaFavoritado = favoritosSalvos.some(
-        (fav) => fav.artistaId === id && fav.musicaId === musicaId
-      );
-      setFavoritado(jaFavoritado);
-    };
+    if (musica?.conteudoUrl) {
+      console.log("Buscando letra em:", musica.conteudoUrl);
+      fetch(musica.conteudoUrl)
+        .then((res) => res.text())
+        .then((html) => {
+          setLetraHtml(html);
+          setErroLetra(false);
+        })
+        .catch((err) => {
+          console.error("Erro ao buscar letra:", err);
+          setErroLetra(true);
+        });
+    }
+  }, [musica]);
 
-    atualizarFavoritado();
-    window.addEventListener("storage", atualizarFavoritado);
+  const favoritado = favoritos.some(
+    (fav) => fav.artistaId === id && fav.musicaId === musicaId
+  );
 
-    return () => window.removeEventListener("storage", atualizarFavoritado);
-  }, [id, musicaId]);
-
-  if (!artista) {
-    return <h2>Artista não encontrado</h2>;
-  }
-
-  if (!musica) {
-    return <h2>Música não encontrada</h2>;
-  }
-
-  const favoritarCifra = () => {
-    const favoritosSalvos = JSON.parse(localStorage.getItem("favoritos")) || [];
-
+  const toggleFavorito = () => {
     if (favoritado) {
-      const novosFavoritos = favoritosSalvos.filter(
-        (fav) => !(fav.artistaId === id && fav.musicaId === musicaId)
-      );
-      localStorage.setItem("favoritos", JSON.stringify(novosFavoritos));
-      setFavoritado(false);
+      dispatch(removerFavorito({ artistaId: id, musicaId }));
     } else {
-      const novosFavoritos = [...favoritosSalvos, { artistaId: id, musicaId: musicaId }];
-      localStorage.setItem("favoritos", JSON.stringify(novosFavoritos));
-      setFavoritado(true);
+      dispatch(adicionarFavorito({ artistaId: id, musicaId }));
     }
   };
+
+  if (status === "loading") return <h2>Carregando artista...</h2>;
+  if (!artista) return <h2>Artista não encontrado</h2>;
+  if (!musica) return <h2>Música não encontrada</h2>;
 
   return (
     <div className="musica-page">
       <div className="musica-header">
         <img src={artista.imagem} alt={artista.nome} className="musica-artista-img" />
-
         <div className="musica-info">
           <h1 className="nome-musica">{musica.titulo}</h1>
           <Link to={`/artista/${id}`} className="nome-artista">
             {artista.nome}
           </Link>
-
-          <button onClick={favoritarCifra} className="botao-favoritar">
+          <button onClick={toggleFavorito} className="botao-favoritar">
             {favoritado ? "Remover dos Favoritos" : "Favoritar Cifra"}
           </button>
         </div>
@@ -76,7 +76,9 @@ function MusicaPage() {
 
           <div
             className="letra-musica"
-            dangerouslySetInnerHTML={{ __html: musica.conteudo }}
+            dangerouslySetInnerHTML={{
+              __html: erroLetra ? "<p>Erro ao carregar letra 😢</p>" : letraHtml
+            }}
           />
         </div>
 
@@ -91,8 +93,6 @@ function MusicaPage() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-
-            {/* AutoScrollButton agora DENTRO do bloco de vídeo */}
             <AutoScrollButton />
           </div>
         )}
