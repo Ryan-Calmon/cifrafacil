@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+Cifra-facil
+Nome/Propósito:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CifraFácil – Facilitar o acesso e a personalização de cifras de músicas de forma simples e intuitiva, permitindo que os usuários encontrem rapidamente as cifras que desejam, salvem suas músicas favoritas e solicitem cifras para músicas ainda não disponíveis na plataforma.
 
-## Available Scripts
+Business Case:
 
-In the project directory, you can run:
+Muitos músicos iniciantes e intermediários buscam cifras para aprender as músicas que amam, mas o processo de encontrá-las pode ser demorado e frustrante. Muitas vezes, é necessário procurar em diversos sites ou confiar em fontes não confiáveis.
 
-### `npm start`
+O CifraFácil surge para resolver esse problema, oferecendo um sistema simples onde o usuário pode buscar cifras de maneira rápida e prática ao digitar o nome da música. Além disso, a plataforma permite que os usuários personalizem sua experiência, criando listas de músicas salvas e requisitando cifras para músicas que ainda não estão disponíveis. A proposta do CifraFácil é tornar o aprendizado musical mais acessível e dinâmico, oferecendo não só cifras de músicas populares, mas também um sistema colaborativo para adicionar músicas novas à plataforma.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+O sistema também se beneficia do aumento de músicos e fãs de música que buscam aprender ou revisitar canções com facilidade. Em tempos de crescente digitalização, o CifraFácil é uma solução eficiente para quem busca conveniência e economia de tempo, sem perder a qualidade ou a diversidade musical.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Processo de Negócio Principal:
 
-### `npm test`
+Primeiro, o usuário acessa a página inicial e realiza a busca pela música ou artista desejado na barra de pesquisa. Ele pode inserir o nome completo ou apenas parte dele. O sistema, então, retorna uma lista de músicas que correspondem ao termo buscado, com as cifras correspondentes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Caso o usuário encontre a música, ele pode visualizar a cifra diretamente, e tem a possibilidade de ajustar a tonalidade e o instrumento, caso deseje. Se ele quiser salvar
 
-### `npm run build`
+a música para acessar novamente no futuro, pode adicioná-la à sua lista de músicas salvas.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Se o usuário não encontrar a cifra desejada para a música, ele pode solicitar a criação dessa cifra. Para isso, ele preenche um formulário com o nome da música, o artista e o tipo de cifra desejada. O sistema registra essa solicitação e a equipe do CifraFácil começa a trabalhar na criação da cifra requisitada.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Próximo ao prazo de entrega, o sistema envia uma notificação para o usuário informando que a cifra solicitada foi criada e já está disponível. O usuário pode, então, acessá-la em sua página de músicas requisitadas ou diretamente em sua lista personalizada.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Por fim, o sistema oferece ao usuário a opção de explorar outras músicas ou artistas recomendados, com base em seu histórico de pesquisa, otimizando a experiência musical na plataforma
