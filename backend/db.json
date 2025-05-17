@@ -16,7 +16,7 @@
             "violao",
             "cavaco"
           ],
-          "conteudoUrl": "/letras/oceano.html",
+          "conteudoUrl": "/letras/Oceano.html",
           "youtubeId": "2kqdlAYNEzk",
           "tom": "C"
         },
@@ -45,7 +45,7 @@
     {
       "id": "caetanoveloso",
       "nome": "Caetano Veloso",
-      "imagem": "Iimages/caetanoveloso.png",
+      "imagem": "Images/caetanoveloso.png",
       "categoria": "MPB",
       "numeroDeFas": 30,
       "usuariosFas": [],
