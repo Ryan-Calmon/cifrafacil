@@ -11,6 +11,9 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.6",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
@@ -46,5 +49,11 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
-  }
+  },
+  "description": "Cifra-facil\r Nome/Propósito:",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "proxy": "http://localhost:3001"
 }

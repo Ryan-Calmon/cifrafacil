@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const [termoBusca, setTermoBusca] = useState("");
-  const [artistas, setArtistas] = useState([]); // Para armazenar os artistas do backend
+  const [artistas, setArtistas] = useState([]); 
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("MPB");
   const resultadosRef = useRef(null);
 
-  // Carrega os artistas do backend (db.json)
+
   useEffect(() => {
-    fetch("http://localhost:3001/artistas") // Ajuste a URL de acordo com a sua configuração do backend
+    fetch("http://localhost:3001/artistas") 
       .then((response) => response.json())
       .then((data) => {
         setArtistas(data);
@@ -28,15 +28,14 @@ function Home() {
     (artista) => artista.categoria === categoriaSelecionada
   );
 
-  // Ordenar os artistas pelo número de fãs (do maior para o menor)
+
   const artistasOrdenadosPorFas = artistasFiltradosPorCategoria.sort(
     (a, b) => b.numeroDeFas - a.numeroDeFas
   );
 
-  // Atribuir a posição dos artistas de acordo com a ordem (1º, 2º, 3º...)
   const artistasComPosicao = artistasOrdenadosPorFas.map((artista, index) => ({
     ...artista,
-    posicao: index + 1, // A posição será o índice + 1 (1º, 2º, 3º...)
+    posicao: index + 1,
   }));
 
   const handleCategoriaChange = (e) => {
@@ -94,7 +93,7 @@ function Home() {
                 imagem={artista.imagem}
                 nome={artista.nome}
                 posicao={artista.posicao}
-                numeroDeFas={artista.numeroDeFas}  // Adicionando o número de fãs
+                numeroDeFas={artista.numeroDeFas} 
                 id={artista.id}
               />
             </div>

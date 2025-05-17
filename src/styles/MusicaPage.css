@@ -107,6 +107,44 @@ b {
   height: 315px;
   border-radius: 8px;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.modal-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.botao-joinha {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.3s;
+}
+
+.botao-joinha.ativo {
+  color: #ff4500;
+}
 
 /* Para telas maiores que 1000px */
 @media screen and (min-width: 1000px) {

@@ -6,7 +6,7 @@ import { adicionarLista, editarLista, deletarLista } from "../redux/listasSlice"
 import "../styles/Listas.css";
 
 function Listas() {
-  const listas = useSelector((state) => state.listas);
+  const listas = useSelector((state) => state.listas.listas); // Corrigido aqui para acessar o array
   const favoritos = useSelector((state) => state.favoritos.lista);
   const dispatch = useDispatch();
 
@@ -21,18 +21,28 @@ function Listas() {
   };
 
   const salvarLista = () => {
-    if (novaLista.trim() !== "") {
-      if (editandoIndex !== null) {
-        dispatch(editarLista({ index: editandoIndex, novoNome: novaLista.trim() }));
-        mostrarToast("Lista editada com sucesso!");
-        setEditandoIndex(null);
-      } else {
-        dispatch(adicionarLista(novaLista.trim()));
-        mostrarToast("Lista criada com sucesso!");
-      }
-      setNovaLista("");
-      setShowModal(false);
+    const nomeTrim = novaLista.trim();
+    if (!nomeTrim) return mostrarToast("O nome da lista não pode ser vazio.");
+
+    const nomeDuplicado = listas.some(
+      (l, i) => l.nome.toLowerCase() === nomeTrim.toLowerCase() && i !== editandoIndex
+    );
+
+    if (nomeDuplicado) {
+      return mostrarToast("Já existe uma lista com esse nome.");
     }
+
+    if (editandoIndex !== null) {
+      dispatch(editarLista({ index: editandoIndex, novoNome: nomeTrim }));
+      mostrarToast("Lista editada com sucesso!");
+      setEditandoIndex(null);
+    } else {
+      dispatch(adicionarLista(nomeTrim));
+      mostrarToast("Lista criada com sucesso!");
+    }
+
+    setNovaLista("");
+    setShowModal(false);
   };
 
   return (
@@ -56,6 +66,10 @@ function Listas() {
           </div>
         )}
 
+        {listas.length === 0 && favoritos.length === 0 && (
+          <p>Nenhuma lista ou favorito encontrado.</p>
+        )}
+
         {listas.map((lista, index) => (
           <div key={index} className="lista-item">
             <h4>{lista.nome}</h4>
@@ -71,35 +85,53 @@ function Listas() {
               </ul>
             )}
             <div className="acoes">
-              <button onClick={() => dispatch(deletarLista(index))}>🗑️</button>
-              <button onClick={() => {
-                setNovaLista(lista.nome);
-                setEditandoIndex(index);
-                setShowModal(true);
-              }}>✏️</button>
+              <button
+                onClick={() => {
+                  if (window.confirm("Tem certeza que deseja deletar esta lista?")) {
+                    dispatch(deletarLista(index));
+                  }
+                }}
+              >
+                🗑️
+              </button>
+              <button
+                onClick={() => {
+                  setNovaLista(lista.nome);
+                  setEditandoIndex(index);
+                  setShowModal(true);
+                }}
+              >
+                ✏️
+              </button>
             </div>
           </div>
         ))}
       </div>
 
-      <button className="botao-adicionar" onClick={() => {
-        setNovaLista("");
-        setEditandoIndex(null);
-        setShowModal(true);
-      }}>
+      <button
+        className="botao-adicionar"
+        onClick={() => {
+          setNovaLista("");
+          setEditandoIndex(null);
+          setShowModal(true);
+        }}
+      >
         +
       </button>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <button className="modal-fechar" onClick={() => setShowModal(false)}>×</button>
+            <button className="modal-fechar" onClick={() => setShowModal(false)}>
+              ×
+            </button>
             <h3>{editandoIndex !== null ? "Editar Lista" : "Adicionar Nova Lista"}</h3>
             <input
               type="text"
               value={novaLista}
               onChange={(e) => setNovaLista(e.target.value)}
               placeholder="Nome da lista"
+              autoFocus
             />
             <button className="botao-salvar" onClick={salvarLista}>
               {editandoIndex !== null ? "Salvar" : "Adicionar"}
@@ -108,9 +140,7 @@ function Listas() {
         </div>
       )}
 
-      {toast && (
-        <div className="toast show">{toast}</div>
-      )}
+      {toast && <div className="toast show">{toast}</div>}
     </div>
   );
 }

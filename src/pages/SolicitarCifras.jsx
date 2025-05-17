@@ -7,34 +7,33 @@ function SolicitarCifras() {
   const [youtube, setYoutube] = useState("");
   const [arquivo, setArquivo] = useState(null);
   const [toast, setToast] = useState("");
+  const API_BASE = "http://localhost:3001";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const formData = {
-      musica,
-      artista,
-      youtube,
-      nomeArquivo: arquivo?.name || null,
-      data: new Date().toISOString()
-    };
-  
+
+    const formData = new FormData();
+    formData.append("musica", musica);
+    formData.append("artista", artista);
+    formData.append("youtube", youtube);
+    formData.append("arquivo", arquivo);
+    formData.append("data", new Date().toISOString());
+
     try {
-      await fetch("http://localhost:3001/solicitacoes", {
+      const res = await fetch(`${API_BASE}/upload`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
+        body: formData,
       });
-  
+
+      if (!res.ok) throw new Error("Erro no upload");
+
       setToast("Solicitação enviada com sucesso! 🎶");
-  
+
       setMusica("");
       setArtista("");
       setYoutube("");
       setArquivo(null);
-  
+
       setTimeout(() => setToast(""), 2500);
     } catch (err) {
       console.error("Erro ao enviar:", err);
@@ -44,9 +43,8 @@ function SolicitarCifras() {
 
   return (
     <div className="solicitar-page">
-      
       <form className="solicitar-form" onSubmit={handleSubmit}>
-      <h2 className="titulo">Solicitar Cifras</h2>
+        <h2 className="titulo">Solicitar Cifras</h2>
         <input
           type="text"
           placeholder="Nome da música"
@@ -66,7 +64,7 @@ function SolicitarCifras() {
           onChange={(e) => setYoutube(e.target.value)}
         />
         <label className="custom-file-upload">
-          Anexar Cifra (.doc)
+          Anexar Cifra (.doc, .txt, etc.)
           <input
             type="file"
             onChange={(e) => setArquivo(e.target.files[0])}
@@ -77,10 +75,7 @@ function SolicitarCifras() {
         </button>
       </form>
 
-      {/* Toast de sucesso */}
-      {toast && (
-        <div className="toast show">{toast}</div>
-      )}
+      {toast && <div className="toast show">{toast}</div>}
     </div>
   );
 }

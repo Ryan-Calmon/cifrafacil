@@ -1,22 +1,21 @@
 // src/redux/artistasSlice.js
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Ação para buscar todos os artistas
+const API_BASE = "http://localhost:3001";
+
 export const fetchArtistas = createAsyncThunk(
   "artistas/fetchArtistas",
   async () => {
-    const res = await fetch("http://localhost:3001/artistas");
+    const res = await fetch(`${API_BASE}/artistas`);
     if (!res.ok) throw new Error("Erro ao carregar artistas");
     return await res.json();
   }
 );
 
-// Ação para buscar um artista específico por ID
 export const fetchArtistaPorId = createAsyncThunk(
   "artistas/fetchArtistaPorId",
   async (id) => {
-    const res = await fetch(`http://localhost:3001/artistas/${id}`);
+    const res = await fetch(`${API_BASE}/artistas/${id}`);
     if (!res.ok) throw new Error("Artista não encontrado");
     return await res.json();
   }

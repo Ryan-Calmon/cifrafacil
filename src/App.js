@@ -9,6 +9,8 @@ import SolicitarCifras from './pages/SolicitarCifras';
 import Buscarcifra from './pages/Buscarcifra';
 import ArtistaPage from "./pages/ArtistaPage";
 import MusicaPage from "./pages/MusicaPage";
+import AdminSolicitacoes from "./pages/AdminSolicitacoes";
+import GerenciarCifras from './pages/GerenciarCifras';
 
 
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/Buscarcifra" element={<Buscarcifra />} />
         <Route path="/artista/:id" element={<ArtistaPage />} />
         <Route path="/artista/:id/musica/:musicaId" element={<MusicaPage />} />
+        <Route path="/solicitacoes" element={<AdminSolicitacoes />} />
+        <Route path="/GerenciarCifras" element={<GerenciarCifras />} />
         </Routes>
       <Footer/>
       </BrowserRouter>
