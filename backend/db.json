@@ -26,7 +26,7 @@
             "violao",
             "cavaco"
           ],
-          "conteudoUrl": "/letras/EuTeDevoro.html",
+          "conteudoUrl": "/letras/eutedevoro.html",
           "youtubeId": "bUjQNMH1HYw",
           "tom": "D"
         },
@@ -36,7 +36,7 @@
             "violao",
             "cavaco"
           ],
-          "conteudoUrl": "/letras/FlorDeLis.html",
+          "conteudoUrl": "/letras/flordelis.html",
           "youtubeId": "2kqdlAYNEzk",
           "tom": "C"
         }
@@ -54,5 +54,7 @@
   ],
   "favoritos": [],
   "listas": [],
-  "solicitacoes": []
+  "solicitacoes": [
+
+  ]
 }
