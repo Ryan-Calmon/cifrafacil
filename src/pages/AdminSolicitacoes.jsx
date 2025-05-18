@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../styles/AdminSolicitacoes.css";
 
 export default function AdminSolicitacoes() {
   const [solicitacoes, setSolicitacoes] = useState([]);
@@ -45,74 +46,89 @@ export default function AdminSolicitacoes() {
   );
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Solicitações de Cifras</h1>
+    <div className="solicitacao-page">
+    <div className="container-solicitacoes">
+      <h1 className="titulo-solicitacoes">Solicitações de Cifras</h1>
 
-      <div className="flex gap-2 mb-4">
-        <button onClick={() => setFiltro("pendente")} className={`px-4 py-2 rounded ${filtro === "pendente" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-          Pendentes
-        </button>
-        <button onClick={() => setFiltro("atendida")} className={`px-4 py-2 rounded ${filtro === "atendida" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-          Atendidas
-        </button>
-        <button onClick={() => setFiltro("todas")} className={`px-4 py-2 rounded ${filtro === "todas" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-          Todas
-        </button>
-      </div>
+      <div className="botoes-filtros">
+
+  <button
+    onClick={() => setFiltro("pendente")}
+    className={`btn ${filtro === "pendente" ? "btn-ativo" : "btn-inativo"}`}
+  >
+    Pendentes
+  </button>
+  <button
+    onClick={() => setFiltro("atendida")}
+    className={`btn ${filtro === "atendida" ? "btn-ativo" : "btn-inativo"}`}
+  >
+    Atendidas
+  </button>
+  <button
+    onClick={() => setFiltro("todas")}
+    className={`btn ${filtro === "todas" ? "btn-ativo" : "btn-inativo"}`}
+  >
+    Todas
+  </button>
+</div>
+
+
 
       <div className="grid gap-4">
         {solicitacoesFiltradas.map((s) => (
           <div
             key={s.id}
-            className="border p-4 rounded-xl shadow flex flex-col gap-2"
+            className="request-container"
           >
-            <div>
-              <p className="font-semibold">🎵 {s.musica} - {s.artista}</p>
-              <p className="text-sm text-gray-600">
+            <div className="solicitacao">
+              <p className="artista">Artista: {s.artista}</p>
+              <p className="musica">Música: {s.musica}</p>
+              <p className="youtube">
                 YouTube: <a href={s.youtube} target="_blank" rel="noreferrer" className="text-blue-500">{s.youtube}</a>
               </p>
-              <p className="text-sm text-gray-500">Arquivo: {s.nomeArquivo}</p>
-              <p className="text-xs text-gray-400">Data: {new Date(s.data).toLocaleString()}</p>
-              <p className="text-xs text-green-700 font-semibold">Status: {s.status || "pendente"}</p>
+              <p className="arquivo">Arquivo: {s.nomeArquivo}</p>
+              <p className="data">Data: {new Date(s.data).toLocaleString()}</p>
+              <p className="status">Status: {s.status || "pendente"}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="botoes-solicitacao">
               <button
                 onClick={() => handleVerCifra(s.nomeArquivo, s.id)}
-                className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700"
+                className="botao"
               >
                 Ver Cifra
               </button>
               <a
                 href={`http://localhost:3001/uploads/${encodeURIComponent(s.nomeArquivo)}`}
                 download
-                className="bg-gray-500 text-white px-4 py-2 rounded-xl hover:bg-gray-600"
+                className="botao"
               >
                 Baixar
               </a>
               {s.status !== "atendida" ? (
                 <button
                   onClick={() => handleAtender(s.id)}
-                  className="bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700"
+                  className="botao"
                 >
                   Atender
                 </button>
               ) : (
                 <button
                   onClick={() => handleReabrir(s.id)}
-                  className="bg-yellow-600 text-white px-4 py-2 rounded-xl hover:bg-yellow-700"
+                  className="botao"
                 >
                   Reabrir
                 </button>
               )}
             </div>
             {showCifraId === s.id && (
-              <pre className="bg-gray-100 p-2 mt-2 text-sm whitespace-pre-wrap">
+              <pre className="cifra-content">
                 {cifraContent}
               </pre>
             )}
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

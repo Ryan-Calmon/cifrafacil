@@ -1,8 +1,12 @@
 .solicitar-page {
-    min-height: calc(100vh - 80px);
-    display: flex;
-    justify-content: center;
     padding: 20px;
+    min-height: calc(100vh - 170px);
+    position: relative;
+    overflow: auto;
+    padding-bottom: 120px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
   }
   
   .solicitar-form {
@@ -75,20 +79,6 @@
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
-.toast.show {
-    position: fixed;
-    bottom: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #4caf50;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 16px;
-    opacity: 0;
-    animation: fadeInOut 2.5s ease forwards;
-    z-index: 1500;
-  }
   
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateX(-50%) translateY(20px); }

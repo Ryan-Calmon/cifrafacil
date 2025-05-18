@@ -68,9 +68,10 @@ function Header({ username }) {
 
           <div className="col-md-6 col-lg-4 col-xl-4 d-none d-md-block d-lg-block d-xl-block">
             <nav className="navegacao-topo">
-              <Link className="menuzin-header" to="/listas">Suas Listas</Link>
+              <Link className="menuzin-header" to="/Listas">Suas Listas</Link>
               <Link className="menuzin-header" to="/SolicitarCifras">Enviar Cifras</Link>
               <Link className="menuzin-header">Olá, {username}</Link>
+              <Link className="menuzin-header"to="/Admin">Admin</Link>
             </nav>
           </div>
 

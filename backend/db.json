@@ -16,7 +16,7 @@
             "violao",
             "cavaco"
           ],
-          "conteudoUrl": "/letras/Oceano.html",
+          "conteudoUrl": "/letras/oceano.html",
           "youtubeId": "2kqdlAYNEzk",
           "tom": "C"
         },
@@ -45,29 +45,14 @@
     {
       "id": "caetanoveloso",
       "nome": "Caetano Veloso",
-      "imagem": "Images/caetanoveloso.png",
+      "imagem": "/Images/caetanoveloso.png",
       "categoria": "MPB",
       "numeroDeFas": 30,
       "usuariosFas": [],
-      "musicas": [
-        {
-          "titulo": "Sozinho",
-          "instrumentos": [
-            "violao",
-            "cavaco"
-          ],
-          "conteudo": "<p>Letra de Sozinho</p>",
-          "youtubeId": "",
-          "tom": ""
-        }
-      ]
+      "musicas": []
     }
   ],
   "favoritos": [],
   "listas": [],
-  "solicitacoes": [
-    {
-   
-    }
-  ]
+  "solicitacoes": []
 }

@@ -64,3 +64,8 @@ app.post("/upload", upload.single("arquivo"), (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+// Ajuste o caminho conforme a localização do seu arquivo principal
+const musicasArquivosRouter = require("./routes/musicas");
+
+
+app.use("/musicas", musicasArquivosRouter);

@@ -75,7 +75,7 @@ function SolicitarCifras() {
         </button>
       </form>
 
-      {toast && <div className="toast show">{toast}</div>}
+      {toast && <div className="custom-toast show">{toast}</div>}
     </div>
   );
 }

@@ -1,13 +1,14 @@
+""// backend/routes/musicas.js
 const express = require("express");
 const router = express.Router();
 const { lerDB, salvarDB } = require("../dbUtils");
+const fs = require("fs");
+const path = require("path");
 
-// Helper para normalizar título para id
 function normalizarTitulo(titulo) {
   return titulo.toLowerCase().replace(/\s+/g, "");
 }
 
-// Listar todas as músicas de todos os artistas
 router.get("/", (req, res) => {
   const db = lerDB();
   let todasMusicas = [];
@@ -22,26 +23,24 @@ router.get("/", (req, res) => {
         conteudoUrl: musica.conteudoUrl || "",
         youtubeId: musica.youtubeId || "",
         tom: musica.tom || "",
-        cifraTexto: musica.cifraTexto || "",  // Campo cifraTexto adicionado
+        cifraTexto: musica.cifraTexto || "",
       });
     });
   });
   res.json(todasMusicas);
 });
 
-// Adicionar nova música
 router.post("/", (req, res) => {
-  const { artistaNome, musicaTitulo, youtubeId, conteudoUrl, cifraTexto } = req.body;
+  const { artistaNome, musicaTitulo, youtubeId, cifraTexto } = req.body;
   if (!artistaNome || !musicaTitulo || !cifraTexto) {
     return res.status(400).json({ error: "Campos obrigatórios faltando" });
   }
 
   const db = lerDB();
+  let artista = db.artistas.find(
+    (a) => a.nome.toLowerCase() === artistaNome.toLowerCase()
+  );
 
-  // Busca artista pelo nome (case insensitive)
-  let artista = db.artistas.find((a) => a.nome.toLowerCase() === artistaNome.toLowerCase());
-
-  // Se artista não existir, cria um novo artista simples
   if (!artista) {
     artista = {
       id: artistaNome.toLowerCase().replace(/\s+/g, ""),
@@ -55,7 +54,6 @@ router.post("/", (req, res) => {
     db.artistas.push(artista);
   }
 
-  // Verifica se a música já existe para o artista
   const musicaExistente = artista.musicas.find(
     (m) => m.titulo.toLowerCase() === musicaTitulo.toLowerCase()
   );
@@ -63,25 +61,36 @@ router.post("/", (req, res) => {
     return res.status(400).json({ error: "Música já existe para este artista" });
   }
 
-  // Adiciona a música com campo cifraTexto
-  artista.musicas.push({
+  const nomeArquivo = musicaTitulo.toLowerCase().replace(/\s+/g, "") + ".html";
+  const baseDir = path.resolve(__dirname, "..", "..", "public", "letras");
+  const arquivoPath = path.join(baseDir, nomeArquivo);
+
+  try {
+    fs.mkdirSync(baseDir, { recursive: true });
+    fs.writeFileSync(arquivoPath, cifraTexto, "utf8");
+  } catch (err) {
+    console.error("Erro ao salvar arquivo cifra:", err);
+    return res.status(500).json({ error: "Erro ao salvar arquivo cifra" });
+  }
+
+  const novaMusica = {
     titulo: musicaTitulo,
     instrumentos: [],
-    conteudoUrl: conteudoUrl || "",
+    conteudoUrl: `/letras/${nomeArquivo}`,
     youtubeId: youtubeId || "",
     tom: "",
-    cifraTexto,
-  });
+  };
 
+  artista.musicas.push(novaMusica);
   salvarDB(db);
-  res.status(201).json({ sucesso: true, musica: artista.musicas[artista.musicas.length - 1] });
+
+  res.status(201).json({ sucesso: true, musica: novaMusica });
 });
 
-// Atualizar música
 router.patch("/:id", (req, res) => {
   const db = lerDB();
   const { id } = req.params;
-  const { musicaTitulo, instrumentos, conteudoUrl, youtubeId, tom, cifraTexto } = req.body;
+  const { musicaTitulo, instrumentos, youtubeId, tom, cifraTexto } = req.body;
 
   const [artistaId, ...tituloParts] = id.split("-");
   const musicaId = tituloParts.join("-");
@@ -94,18 +103,62 @@ router.patch("/:id", (req, res) => {
   );
   if (!musicaObj) return res.status(404).json({ error: "Música não encontrada" });
 
-  if (musicaTitulo) musicaObj.titulo = musicaTitulo;
+  let nomeArquivo = musicaObj.conteudoUrl.split("/").pop();
+  if (musicaTitulo) {
+    nomeArquivo = musicaTitulo.toLowerCase().replace(/\s+/g, "") + ".html";
+    musicaObj.titulo = musicaTitulo;
+    musicaObj.conteudoUrl = `/letras/${nomeArquivo}`;
+  }
+
+  try {
+    const baseDir = path.resolve(__dirname, "..", "..", "public", "letras");
+    const arquivoPath = path.join(baseDir, nomeArquivo);
+    fs.mkdirSync(baseDir, { recursive: true });
+    fs.writeFileSync(arquivoPath, cifraTexto || "", "utf8");
+  } catch (err) {
+    console.error("Erro ao salvar arquivo cifra:", err);
+    return res.status(500).json({ error: "Erro ao salvar arquivo cifra" });
+  }
+
   if (instrumentos) musicaObj.instrumentos = instrumentos;
-  if (conteudoUrl) musicaObj.conteudoUrl = conteudoUrl;
   if (youtubeId) musicaObj.youtubeId = youtubeId;
   if (tom) musicaObj.tom = tom;
-  if (cifraTexto) musicaObj.cifraTexto = cifraTexto;
 
   salvarDB(db);
   res.json({ sucesso: true, musica: musicaObj });
 });
 
-// Deletar música
+router.post("/salvarArquivo", (req, res) => {
+  const { conteudoUrl, cifraTexto } = req.body;
+
+  if (!conteudoUrl || !cifraTexto) {
+    return res.status(400).json({ error: "Campos obrigatórios faltando" });
+  }
+
+  const nomeArquivo = path.basename(conteudoUrl);
+  const baseDir = path.resolve(__dirname, "..", "..", "public", "letras");
+  const arquivoPath = path.join(baseDir, nomeArquivo);
+
+  if (!arquivoPath.startsWith(baseDir)) {
+    return res.status(400).json({ error: "Caminho inválido" });
+  }
+
+  fs.mkdir(baseDir, { recursive: true }, (err) => {
+    if (err) {
+      console.error("Erro ao criar diretório:", err);
+      return res.status(500).json({ error: "Erro ao criar pasta de letras" });
+    }
+
+    fs.writeFile(arquivoPath, cifraTexto, "utf8", (err) => {
+      if (err) {
+        console.error("Erro ao salvar cifra:", err);
+        return res.status(500).json({ error: "Erro ao salvar cifra" });
+      }
+      res.json({ sucesso: true });
+    });
+  });
+});
+
 router.delete("/:id", (req, res) => {
   const db = lerDB();
   const { id } = req.params;

@@ -33,7 +33,7 @@ function Footer() {
         onClick={() => handleSetActive(0, "/")}
       >
         <div className="icon-wrapper">
-          <img src="/Images/menu inicial.png" className="icon" alt="Menu" />
+          <img src="/Images/menuInicial.png" className="icon" alt="Menu" />
         </div>
         <span className="Buscar">Menu</span>
       </div>

@@ -40,7 +40,6 @@ b {
   font-size: 18px;
   color: #ff8c00;
   text-decoration: none;
-  margin: 8px 0;
 }
 
 .nome-artista:hover {
@@ -138,12 +137,19 @@ b {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  margin-left: 10px;
   transition: color 0.3s;
 }
 
 .botao-joinha.ativo {
   color: #ff4500;
+}
+.botao-adicionar-lista{
+  border-radius: 15px;
+  background-color:#5e35b1 ;
+  border: none;
+  color: white;
+  margin-left:10px;
+  padding: 5px;
 }
 
 /* Para telas maiores que 1000px */

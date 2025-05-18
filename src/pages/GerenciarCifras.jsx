@@ -10,7 +10,6 @@ function GerenciarCifras() {
     artistaNome: "",
     musicaTitulo: "",
     youtubeId: "",
-    conteudoUrl: "",
     cifraTexto: "",
   });
   const [toast, setToast] = useState("");
@@ -26,14 +25,42 @@ function GerenciarCifras() {
       .catch(() => setToast("Erro ao carregar músicas"));
   };
 
+  const extrairYouTubeID = (url) => {
+    if (!url) return "";
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : url;
+  };
+
+  useEffect(() => {
+    if (modalAberto && editandoId) {
+      const musica = musicas.find((m) => m.id === editandoId);
+      if (musica && musica.conteudoUrl) {
+        fetch(musica.conteudoUrl)
+          .then((res) => {
+            if (!res.ok) throw new Error("Arquivo não encontrado");
+            return res.text();
+          })
+          .then((text) => {
+            setFormData((f) => ({ ...f, cifraTexto: text }));
+          })
+          .catch(() => {
+            setFormData((f) => ({ ...f, cifraTexto: "" }));
+          });
+      } else {
+        setFormData((f) => ({ ...f, cifraTexto: "" }));
+      }
+    }
+  }, [modalAberto, editandoId, musicas]);
+
   const abrirEdicao = (musica) => {
     setEditandoId(musica.id);
     setFormData({
       artistaNome: musica.artistaNome || "",
       musicaTitulo: musica.musicaTitulo || "",
       youtubeId: musica.youtubeId || "",
-      conteudoUrl: musica.conteudoUrl || "",
-      cifraTexto: musica.cifraTexto || "",
+      cifraTexto: "",
     });
     setModalAberto(true);
   };
@@ -44,7 +71,6 @@ function GerenciarCifras() {
       artistaNome: "",
       musicaTitulo: "",
       youtubeId: "",
-      conteudoUrl: "",
       cifraTexto: "",
     });
     setModalAberto(true);
@@ -57,7 +83,6 @@ function GerenciarCifras() {
       artistaNome: "",
       musicaTitulo: "",
       youtubeId: "",
-      conteudoUrl: "",
       cifraTexto: "",
     });
   };
@@ -67,18 +92,17 @@ function GerenciarCifras() {
   };
 
   const salvarEdicao = async () => {
-    if (!formData.artistaNome || !formData.musicaTitulo || !formData.cifraTexto) {
+    if (!formData.artistaNome.trim() || !formData.musicaTitulo.trim() || !formData.cifraTexto.trim()) {
       setToast("Preencha todos os campos obrigatórios");
       return;
     }
 
     try {
       const body = {
-        artistaNome: formData.artistaNome,
-        musicaTitulo: formData.musicaTitulo,
-        youtubeId: formData.youtubeId,
-        conteudoUrl: formData.conteudoUrl,
-        cifraTexto: formData.cifraTexto,
+        artistaNome: formData.artistaNome.trim(),
+        musicaTitulo: formData.musicaTitulo.trim(),
+        youtubeId: extrairYouTubeID(formData.youtubeId),
+        cifraTexto: formData.cifraTexto.trim(),
       };
 
       let url = `${API_BASE}/musicas`;
@@ -95,13 +119,16 @@ function GerenciarCifras() {
         body: JSON.stringify(body),
       });
 
-      if (!res.ok) throw new Error("Erro ao salvar música");
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Erro ao salvar música");
+      }
 
       setToast(editandoId ? "Música atualizada com sucesso!" : "Música adicionada com sucesso!");
       fecharModal();
       fetchMusicas();
-    } catch {
-      setToast("Erro ao salvar música");
+    } catch (error) {
+      setToast(error.message || "Erro ao salvar música");
     }
   };
 
@@ -145,7 +172,7 @@ function GerenciarCifras() {
               <td>{m.musicaTitulo}</td>
               <td>
                 {m.youtubeId ? (
-                  <a href={m.youtubeId} target="_blank" rel="noreferrer">
+                  <a href={`https://youtube.com/watch?v=${m.youtubeId}`} target="_blank" rel="noreferrer">
                     Link
                   </a>
                 ) : (
@@ -169,47 +196,44 @@ function GerenciarCifras() {
       </table>
 
       {modalAberto && (
-        <div className="modal-overlay">
-          <div className="modal-content" style={{ maxWidth: 600 }}>
+        <div
+          className="modal-overlay"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <div
+            className="modal-content"
+            style={{ maxWidth: 600, backgroundColor: "white", padding: 20, borderRadius: 8 }}
+          >
             <h3>{editandoId ? "Editar Música" : "Adicionar Música"}</h3>
 
             <label>
               Artista*:
-              <input
-                name="artistaNome"
-                value={formData.artistaNome}
-                onChange={handleInputChange}
-                required
-              />
+              <input name="artistaNome" value={formData.artistaNome} onChange={handleInputChange} required />
             </label>
 
             <label>
               Música*:
-              <input
-                name="musicaTitulo"
-                value={formData.musicaTitulo}
-                onChange={handleInputChange}
-                required
-              />
+              <input name="musicaTitulo" value={formData.musicaTitulo} onChange={handleInputChange} required />
             </label>
 
             <label>
-              YouTube:
+              YouTube (ID ou URL):
               <input
                 name="youtubeId"
                 value={formData.youtubeId}
                 onChange={handleInputChange}
-                placeholder="https://youtube.com/..."
-              />
-            </label>
-
-            <label>
-              URL do conteúdo:
-              <input
-                name="conteudoUrl"
-                value={formData.conteudoUrl}
-                onChange={handleInputChange}
-                placeholder="URL para o conteúdo da cifra"
+                placeholder="Ex: https://youtube.com/watch?v=ID"
               />
             </label>
 
