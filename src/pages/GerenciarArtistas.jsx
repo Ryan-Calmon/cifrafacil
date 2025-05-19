@@ -46,7 +46,8 @@ function GerenciarArtistas() {
   const abrirEditar = (artista) => {
     setEditandoId(artista.id);
     setFormData({ nome: artista.nome, categoria: artista.categoria, imagem: artista.imagem });
-    setPreview(artista.imagem ? `${API_BASE}${artista.imagem}` : null);
+    // Remove o API_BASE para que a imagem seja buscada no frontend public
+    setPreview(artista.imagem ? artista.imagem : null);
     setModalAberto(true);
   };
 
@@ -124,7 +125,12 @@ function GerenciarArtistas() {
           {artistas.map((a) => (
             <tr key={a.id}>
               <td>
-                {a.imagem ? <img src={`${API_BASE}${a.imagem}`} alt="artista" width={64} /> : "-"}
+                {a.imagem ? (
+                  // Remove `${API_BASE}`, imagem será carregada diretamente do frontend public
+                  <img src={a.imagem} alt="artista" width={64} />
+                ) : (
+                  "-"
+                )}
               </td>
               <td>{a.nome}</td>
               <td>{a.categoria}</td>
@@ -138,7 +144,16 @@ function GerenciarArtistas() {
       </table>
 
       {modalAberto && (
-        <div style={{ background: "#0008", position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            background: "#0008",
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div style={{ background: "#fff", padding: 20, borderRadius: 8, maxWidth: 400 }}>
             <h3>{editandoId ? "Editar Artista" : "Novo Artista"}</h3>
             <label>

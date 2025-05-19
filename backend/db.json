@@ -39,6 +39,13 @@
           "conteudoUrl": "/letras/flordelis.html",
           "youtubeId": "2kqdlAYNEzk",
           "tom": "C"
+        },
+        {
+          "titulo": "Samurai",
+          "instrumentos": [],
+          "conteudoUrl": "/letras/samurai.html",
+          "youtubeId": "3-qwqrQXsXQ",
+          "tom": ""
         }
       ]
     },
@@ -54,7 +61,5 @@
   ],
   "favoritos": [],
   "listas": [],
-  "solicitacoes": [
-
-  ]
+  "solicitacoes": []
 }

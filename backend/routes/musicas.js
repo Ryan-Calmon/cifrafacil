@@ -78,7 +78,7 @@ router.post("/", (req, res) => {
     instrumentos: [],
     conteudoUrl: `/letras/${nomeArquivo}`,
     youtubeId: youtubeId || "",
-    tom: "",
+    tom: tom || "",
   };
 
   artista.musicas.push(novaMusica);

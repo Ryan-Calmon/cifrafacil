@@ -11,6 +11,7 @@ function GerenciarCifras() {
     musicaTitulo: "",
     youtubeId: "",
     cifraTexto: "",
+    tom: "",
   });
   const [toast, setToast] = useState("");
 
@@ -61,6 +62,7 @@ function GerenciarCifras() {
       musicaTitulo: musica.musicaTitulo || "",
       youtubeId: musica.youtubeId || "",
       cifraTexto: "",
+      tom: musica.tom || ""
     });
     setModalAberto(true);
   };
@@ -72,6 +74,7 @@ function GerenciarCifras() {
       musicaTitulo: "",
       youtubeId: "",
       cifraTexto: "",
+      tom: "", 
     });
     setModalAberto(true);
   };
@@ -103,6 +106,7 @@ function GerenciarCifras() {
         musicaTitulo: formData.musicaTitulo.trim(),
         youtubeId: extrairYouTubeID(formData.youtubeId),
         cifraTexto: formData.cifraTexto.trim(),
+        tom: formData.tom.trim(),
       };
 
       let url = `${API_BASE}/musicas`;
@@ -226,7 +230,6 @@ function GerenciarCifras() {
               Música*:
               <input name="musicaTitulo" value={formData.musicaTitulo} onChange={handleInputChange} required />
             </label>
-
             <label>
               YouTube (ID ou URL):
               <input
@@ -236,7 +239,10 @@ function GerenciarCifras() {
                 placeholder="Ex: https://youtube.com/watch?v=ID"
               />
             </label>
-
+          <label>
+          Tom da Música:
+          <input name="tom" value={formData.tom} onChange={handleInputChange} />
+          </label>
             <label>
               Cifra*:
               <textarea
