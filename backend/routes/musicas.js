@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { artistaNome, musicaTitulo, youtubeId, cifraTexto } = req.body;
+  const { artistaNome, musicaTitulo, youtubeId, cifraTexto, tom } = req.body;
   if (!artistaNome || !musicaTitulo || !cifraTexto) {
     return res.status(400).json({ error: "Campos obrigatórios faltando" });
   }
