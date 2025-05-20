@@ -151,6 +151,12 @@ b {
   margin-left:10px;
   padding: 5px;
 }
+.botao-tom{
+  border: none;
+  border-radius: 6px;
+  background-color: #5e35b1;
+  color: white;
+}
 
 /* Para telas maiores que 1000px */
 @media screen and (min-width: 1000px) {

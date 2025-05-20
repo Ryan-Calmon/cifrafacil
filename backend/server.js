@@ -22,12 +22,13 @@ app.use("/uploads", express.static(uploadDir));
 const solicitacoesRoutes = require("./routes/solicitacoes");
 const artistasRoutes = require("./routes/artistas");
 const musicasRoutes = require("./routes/musicas");
-
+const comentariosRoutes = require("./routes/comentarios");
 
 // Usar rotas
 app.use("/solicitacoes", solicitacoesRoutes);
 app.use("/artistas", artistasRoutes);
 app.use("/musicas", musicasRoutes);
+app.use("/comentarios", comentariosRoutes);
 
 // Config multer para upload de arquivos
 const storage = multer.diskStorage({
@@ -66,6 +67,4 @@ app.listen(PORT, () => {
 });
 // Ajuste o caminho conforme a localização do seu arquivo principal
 const musicasArquivosRouter = require("./routes/musicas");
-
-
 app.use("/musicas", musicasArquivosRouter);
