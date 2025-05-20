@@ -20,4 +20,3 @@ function ArtistaCard({ imagem, nome, posicao, id }) {
 
 export default ArtistaCard;
 
-ArtistaCard <classname=">
