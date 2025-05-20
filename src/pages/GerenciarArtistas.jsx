@@ -181,3 +181,5 @@ function GerenciarArtistas() {
 }
 
 export default GerenciarArtistas;
+
+GerenciarArtistas<>

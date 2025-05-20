@@ -65,3 +65,5 @@ const artistasSlice = createSlice({
 export const { limparArtistaSelecionado } = artistasSlice.actions;
 
 export default artistasSlice.reducer;
+
+artistaslice<class
